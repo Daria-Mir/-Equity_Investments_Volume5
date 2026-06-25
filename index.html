@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CFA Level I: Equity Investments - Audio Learning Companion</title>
+    <meta name="description" content="An interactive audio landing page for CFA Level I Volume 5: Equity Investments. Listen to audio lectures, study tables and schemes, and master equity analysis.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="CFA Logo" style="height: 32px; width: auto; border-radius: 50%; border: 1.5px solid var(--accent-gold);">
+                <span>CFA STUDY COMPANION</span>
+            </div>
+            <div class="audio-meta" style="margin-bottom: 0;">
+                <span class="module-badge">Volume 5</span>
+                <span style="color: var(--text-secondary)">8 Modules</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Presentation Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="subtitle">CFA Program Curriculum</div>
+                <h1>Level I: Equity Investments</h1>
+                <p>
+                    Embark on an immersive audio learning journey through the core concepts of global equity markets. This companion contains 8 curated audio modules covering everything from market structure and security indexes to market efficiency, company analysis, and intrinsic valuation models.
+                </p>
+                <div class="hero-buttons">
+                    <button id="main-play-btn" class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                        Start Listening
+                    </button>
+                    <a href="cfa-program2025L1V5.pdf" class="btn-secondary" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        Open Full PDF
+                    </a>
+                </div>
+            </div>
+            <div class="hero-cover">
+                <img src="cfa_book_cover.png" alt="CFA Level I Equity Investments Cover">
+            </div>
+        </section>
+
+        <!-- Timeline of Modules -->
+        <section class="timeline-section">
+            <div class="section-title">
+                <h2>The 8-Step Equity Masterclass</h2>
+                <p>Follow the curriculum step-by-step with synchronized audio lectures and interactive core summaries.</p>
+            </div>
+
+            <div class="modules-container">
+                
+                <!-- Module 1 -->
+                <article class="module-card" id="module-1">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 1</span>
+                            <button class="play-module-btn" aria-label="Play Module 1">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Market Organization & Structure</h3>
+                        <div class="audio-meta">
+                            <span>Audio: The Global Financial Time Machine</span>
+                        </div>
+                        <p class="module-summary">
+                            Discover the grand machinery of global financial markets. Learn how the financial system bridges savers and borrowers, facilitates asset allocation, and manages risks. Underneath, examine order execution rules, broker-dealer operations, leverage calculations, and margin requirements.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 14h4v7H4v-7zm6-5h4v12h-4V9zm6-5h4v17h-4V4z"/></svg>
+                            Interactive Limit Order Book
+                        </div>
+                        <div class="lob-container">
+                            <div class="lob-side bids">
+                                <h4>Bids (Buy Orders)</h4>
+                                <div class="lob-list">
+                                    <div class="lob-row"><span>$99.50</span><span>500 shrs</span></div>
+                                    <div class="lob-row"><span>$99.40</span><span>1,200 shrs</span></div>
+                                    <div class="lob-row"><span>$99.25</span><span>2,000 shrs</span></div>
+                                </div>
+                            </div>
+                            <div class="lob-side asks">
+                                <h4>Asks (Sell Orders)</h4>
+                                <div class="lob-list">
+                                    <div class="lob-row"><span>$99.60</span><span>300 shrs</span></div>
+                                    <div class="lob-row"><span>$99.70</span><span>800 shrs</span></div>
+                                    <div class="lob-row"><span>$99.85</span><span>1,500 shrs</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="font-size: 11px; color: var(--text-secondary); margin-top: 12px; text-align: center;">
+                            The inside spread is <strong>$0.10</strong> (Best Bid: $99.50 | Best Ask: $99.60).
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Module 2 -->
+                <article class="module-card" id="module-2">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 2</span>
+                            <button class="play-module-btn" aria-label="Play Module 2">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Security Market Indexes</h3>
+                        <div class="audio-meta">
+                            <span>Audio: How Security Market Indexes Really Work</span>
+                        </div>
+                        <p class="module-summary">
+                            Indexes are the pulse of financial markets. Explore index construction methodologies, including price-weighting, equal-weighting, market-capitalization-weighting, and fundamental-weighting. Contrast how stock splits affect divisors and index values.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                            Index Weighting Methods
+                        </div>
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Determined By</th>
+                                    <th>Key Risk / Bias</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Price</strong></td>
+                                    <td>Stock Price</td>
+                                    <td>High-priced stocks dominate</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Equal</strong></td>
+                                    <td>1 / N shares</td>
+                                    <td>Frequent rebalancing costs</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Market-Cap</strong></td>
+                                    <td>Total Value</td>
+                                    <td>Overweights overvalued stocks</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Fundamental</strong></td>
+                                    <td>Sales / BV / NI</td>
+                                    <td>Value tilt bias</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <!-- Module 3 -->
+                <article class="module-card" id="module-3">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 3</span>
+                            <button class="play-module-btn" aria-label="Play Module 3">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Market Efficiency</h3>
+                        <div class="audio-meta">
+                            <span>Audio: Can You Actually Outsmart the Market?</span>
+                        </div>
+                        <p class="module-summary">
+                            Examine the Efficient Market Hypothesis (EMH). Distinguish between weak, semi-strong, and strong forms of market efficiency, and understand what they mean for technical analysis, fundamental analysis, and active management. Learn about market anomalies like calendar effects and pricing discrepancies.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                            Forms of Market Efficiency
+                        </div>
+                        <div class="emh-diagram">
+                            <div class="emh-card">
+                                <div class="level-indicator weak-level">W</div>
+                                <div class="emh-details">
+                                    <h4>Weak Form Efficiency</h4>
+                                    <p>Reflects all historical trading data. Technical Analysis fails.</p>
+                                </div>
+                            </div>
+                            <div class="emh-card">
+                                <div class="level-indicator semistrong-level">SS</div>
+                                <div class="emh-details">
+                                    <h4>Semi-Strong Form Efficiency</h4>
+                                    <p>Reflects all public data (earnings, news). Fundamental Analysis fails.</p>
+                                </div>
+                            </div>
+                            <div class="emh-card">
+                                <div class="level-indicator strong-level">S</div>
+                                <div class="emh-details">
+                                    <h4>Strong Form Efficiency</h4>
+                                    <p>Reflects all public & private info. Insider trading fails.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Module 4 -->
+                <article class="module-card" id="module-4">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 4</span>
+                            <button class="play-module-btn" aria-label="Play Module 4">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Overview of Equity Securities</h3>
+                        <div class="audio-meta">
+                            <span>Audio: The Hidden Machinery of Global Equities</span>
+                        </div>
+                        <p class="module-summary">
+                            Delve into common stock, preference shares, public versus private equity, and foreign security ownership structures (like ADRs and GDRs). Analyze risk and return characteristics, voting systems (cumulative vs. statutory), and calculate book vs. market values.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z"/></svg>
+                            Common vs. Preferred Shares
+                        </div>
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Common Shares</th>
+                                    <th>Preferred Shares</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Voting Rights</strong></td>
+                                    <td>Yes</td>
+                                    <td>Generally No</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dividends</strong></td>
+                                    <td>Variable, Discretionary</td>
+                                    <td>Fixed Rate, Priority</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Liquidation Claim</strong></td>
+                                    <td>Residual claim (last)</td>
+                                    <td>Priority over common</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Growth Potential</strong></td>
+                                    <td>High</td>
+                                    <td>Low (debt-like)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <!-- Module 5 -->
+                <article class="module-card" id="module-5">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 5</span>
+                            <button class="play-module-btn" aria-label="Play Module 5">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Company Analysis - Past & Present</h3>
+                        <div class="audio-meta">
+                            <span>Audio: Retail Profits Hide in Membership Fees</span>
+                        </div>
+                        <p class="module-summary">
+                            Learn how to read past company financial statements to understand revenue streams, business models, cost structure, and working capital. Distinguish between fixed and variable operating costs, and identify natural vs. functional classifications.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                            Company Analysis Framework
+                        </div>
+                        <div class="flowchart-container">
+                            <div class="flow-node">1. Determine the Business Model</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-node">2. Revenue Drivers (Pricing & Volumes)</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-node">3. Cost Structures (Fixed vs. Variable)</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-node">4. Capital Commitments & ROE</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Module 6 -->
+                <article class="module-card" id="module-6">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 6</span>
+                            <button class="play-module-btn" aria-label="Play Module 6">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Industry & Competitive Analysis</h3>
+                        <div class="audio-meta">
+                            <span>Audio: Why Industry Structure Beats Great Execution</span>
+                        </div>
+                        <p class="module-summary">
+                            Analyze industry boundaries, competitive forces (Porter's Five Forces), and industry life cycles. Relate macroeconomic external factors to company growth, and learn how to identify generic corporate strategies: cost leadership, differentiation, and focus.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z"/></svg>
+                            Porter's Generic Strategies
+                        </div>
+                        <div class="porter-grid">
+                            <div class="porter-cell">
+                                <h4>Cost Leadership</h4>
+                                <p>Broad scope. Lower costs than competitors (e.g., Walmart).</p>
+                            </div>
+                            <div class="porter-cell">
+                                <h4>Differentiation</h4>
+                                <p>Broad scope. Unique products that justify premium prices (e.g., Apple).</p>
+                            </div>
+                            <div class="porter-cell">
+                                <h4>Cost Focus</h4>
+                                <p>Narrow scope. Target specific niche with low cost strategy.</p>
+                            </div>
+                            <div class="porter-cell">
+                                <h4>Differentiation Focus</h4>
+                                <p>Narrow scope. Target niche with highly customized product.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Module 7 -->
+                <article class="module-card" id="module-7">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 7</span>
+                            <button class="play-module-btn" aria-label="Play Module 7">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Company Analysis - Forecasting</h3>
+                        <div class="audio-meta">
+                            <span>Audio: How Professionals Forecast Company Financial Results</span>
+                        </div>
+                        <p class="module-summary">
+                            Explore modeling techniques used by analysts. Contrast top-down and bottom-up forecasting models for revenues. Model operating costs, working capital accounts, capital expenditures, and run scenario analysis to stress test financial assumptions.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                            Forecasting Revenue Approaches
+                        </div>
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Approach</th>
+                                    <th>Starting Point</th>
+                                    <th>Best Suited For</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Top-Down</strong></td>
+                                    <td>GDP / Industry Growth</td>
+                                    <td>Mature, highly-correlated markets</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bottom-Up</strong></td>
+                                    <td>Unit Volumes & Prices</td>
+                                    <td>Retailers, single-product niches</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hybrid</strong></td>
+                                    <td>Both Combined</td>
+                                    <td>Diversified global corporations</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <!-- Module 8 -->
+                <article class="module-card" id="module-8">
+                    <div class="module-info">
+                        <div class="module-header">
+                            <span class="module-badge">Module 8</span>
+                            <button class="play-module-btn" aria-label="Play Module 8">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <h3 class="module-title">Equity Valuation</h3>
+                        <div class="audio-meta">
+                            <span>Audio: Three Models for Calculating Intrinsic Value</span>
+                        </div>
+                        <p class="module-summary">
+                            Discover the ultimate goal of equity research: determining intrinsic value. Learn how to apply Present Value models (Dividend Discount and Free Cash Flow models), Multiplier models (P/E, P/B, EV/EBITDA), and Asset-based valuations.
+                        </p>
+                    </div>
+                    <div class="module-visual">
+                        <div class="visual-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.25z"/></svg>
+                            Valuation Model Classifications
+                        </div>
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Model Class</th>
+                                    <th>Core Input / Focus</th>
+                                    <th>Key Metric</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Present Value</strong></td>
+                                    <td>Discounted cash flows / div</td>
+                                    <td>Cost of Equity (r), Growth (g)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Multipliers</strong></td>
+                                    <td>Comparable multiples / size</td>
+                                    <td>P/E, EV/EBITDA, P/B</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Asset-Based</strong></td>
+                                    <td>Fair value of net assets</td>
+                                    <td>Assets minus Liabilities</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">CFA® Program Level I Curriculum • Audio Companion Study Portal</p>
+            <p class="footer-text" style="margin-top: 8px; font-size: 11px; opacity: 0.6;">All audio materials are organized in numeric order from Module 1 to Module 8.</p>
+        </div>
+    </footer>
+
+    <!-- Sticky Bottom Audio Player -->
+    <div id="master-player" class="master-player">
+        <div class="player-inner">
+            
+            <!-- Track Info -->
+            <div class="player-track-info">
+                <div id="track-thumb" class="track-thumbnail">1</div>
+                <div class="track-details">
+                    <div id="track-title-text" class="track-title-text">Market Organization & Structure</div>
+                    <div id="track-subtitle-text" class="track-subtitle-text">The Global Financial Time Machine</div>
+                </div>
+            </div>
+
+            <!-- Main Play Controls -->
+            <div class="player-controls-container">
+                <div class="control-buttons">
+                    <button id="prev-btn" class="player-btn" aria-label="Previous Module">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
+                        </svg>
+                    </button>
+                    <button id="play-pause-btn" class="player-btn play-pause-btn" aria-label="Play or Pause">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="transform: translateX(1px)">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                    </button>
+                    <button id="next-btn" class="player-btn" aria-label="Next Module">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Seek Bar -->
+                <div class="progress-container">
+                    <span id="current-time" class="time-display">00:00</span>
+                    <div id="progress-bar-wrapper" class="progress-bar-wrapper">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <span id="duration" class="time-display">00:00</span>
+                </div>
+            </div>
+
+            <!-- Extras (Volume + Velocity Regulator) -->
+            <div class="player-extras">
+                
+                <!-- Velocity Regulator (Speed Selector) -->
+                <div class="speed-control">
+                    <button id="speed-btn" class="speed-btn" aria-haspopup="true" aria-expanded="false">1.0x</button>
+                    <div id="speed-options" class="speed-options">
+                        <button class="speed-option" data-speed="0.5">0.5x</button>
+                        <button class="speed-option" data-speed="0.75">0.75x</button>
+                        <button class="speed-option active" data-speed="1.0">1.0x</button>
+                        <button class="speed-option" data-speed="1.2">1.2x</button>
+                        <button class="speed-option" data-speed="1.5">1.5x</button>
+                        <button class="speed-option" data-speed="2.0">2.0x</button>
+                    </div>
+                </div>
+
+                <!-- Volume Controls -->
+                <div class="volume-control">
+                    <button id="volume-icon" class="player-btn" aria-label="Mute Toggle">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 9v6h4l5 5V4L9 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
+                        </svg>
+                    </button>
+                    <div id="volume-slider-wrapper" class="volume-slider-wrapper">
+                        <div id="volume-fill" class="volume-fill"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script File -->
+    <script src="app.js"></script>
+</body>
+</html>
