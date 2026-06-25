@@ -735,63 +735,38 @@ header {
     display: inline-block;
 }
 
-.speed-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    border-radius: 15px;
-    padding: 4px 12px;
-    font-size: 11px;
-    color: var(--text-primary);
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    font-family: monospace;
-    font-weight: bold;
-}
-
-.speed-btn:hover {
-    border-color: var(--accent-gold);
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.speed-options {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    right: 0;
-    background: #0f1115;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 4px;
-    display: none;
-    flex-direction: column;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-    z-index: 1001;
-}
-
-.speed-options.show {
-    display: flex;
-}
-
-.speed-option {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    padding: 6px 14px;
+.speed-select {
+    background: rgba(20, 24, 33, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.5); /* Semi-transparent gold border */
+    border-radius: 18px;
+    padding: 6px 32px 6px 16px; /* Padding on right to clear custom arrow */
     font-size: 12px;
+    color: var(--accent-gold); /* Gold color for high visibility */
     cursor: pointer;
-    text-align: left;
-    border-radius: 4px;
     transition: var(--transition-smooth);
     font-family: monospace;
-}
-
-.speed-option:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--accent-gold);
-}
-
-.speed-option.active {
-    color: var(--accent-gold);
     font-weight: bold;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2712%27%20height%3D%2712%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23d4af37%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpolyline%20points%3D%276%209%2012%2015%2018%209%27%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.speed-select:hover, .speed-select:focus {
+    border-color: var(--accent-gold);
+    background-color: rgba(212, 175, 55, 0.15); /* Soft gold highlight background */
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+/* Styled option elements inside select */
+.speed-select option {
+    background: #0f1115;
+    color: #fff;
 }
 
 /* Volume Control */
@@ -962,30 +937,7 @@ footer {
         display: none; /* Hide volume bar on mobile to optimize space */
     }
 
-    /* Styled native speed select */
-    .speed-select {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--border-color);
-        border-radius: 15px;
-        padding: 4px 12px;
-        font-size: 11px;
-        color: var(--text-primary);
-        cursor: pointer;
-        transition: var(--transition-smooth);
-        font-family: monospace;
-        font-weight: bold;
-        outline: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        text-align: center;
-        text-align-last: center;
-    }
 
-    .speed-select:hover, .speed-select:focus {
-        border-color: var(--accent-gold);
-        background: rgba(255, 255, 255, 0.1);
-    }
 }
 
 @media (max-width: 480px) {
