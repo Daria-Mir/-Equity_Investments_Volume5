@@ -526,15 +526,14 @@
                 
                 <!-- Velocity Regulator (Speed Selector) -->
                 <div class="speed-control">
-                    <button id="speed-btn" class="speed-btn" aria-haspopup="true" aria-expanded="false">1.0x</button>
-                    <div id="speed-options" class="speed-options">
-                        <button class="speed-option" data-speed="0.5">0.5x</button>
-                        <button class="speed-option" data-speed="0.75">0.75x</button>
-                        <button class="speed-option active" data-speed="1.0">1.0x</button>
-                        <button class="speed-option" data-speed="1.2">1.2x</button>
-                        <button class="speed-option" data-speed="1.5">1.5x</button>
-                        <button class="speed-option" data-speed="2.0">2.0x</button>
-                    </div>
+                    <select id="speed-select" class="speed-select" aria-label="Playback Speed">
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1.0" selected>1.0x</option>
+                        <option value="1.2">1.2x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2.0">2.0x</option>
+                    </select>
                 </div>
 
                 <!-- Volume Controls -->

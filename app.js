@@ -77,10 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isMuted = false;
     let previousVolume = 0.8;
 
-    // Speed / Velocity controller
-    const speedBtn = document.getElementById('speed-btn');
-    const speedOptions = document.getElementById('speed-options');
-    const speedOptionsList = document.querySelectorAll('.speed-option');
+    // Speed / Velocity controller (native select on mobile/desktop)
+    const speedSelect = document.getElementById('speed-select');
 
     // Initialize volume
     audio.volume = previousVolume;
@@ -138,6 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
             trackSubtitleText.textContent = playlist[index].sub;
             
             // Set playback speed
+            if (speedSelect) {
+                speedSelect.value = playbackSpeed.toString();
+            }
             audio.playbackRate = playbackSpeed;
 
             // Make player visible
@@ -306,32 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Playback Speed (Velocity) Selector Logic
-    speedBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        speedOptions.classList.toggle('show');
-    });
-
-    document.addEventListener('click', () => {
-        speedOptions.classList.remove('show');
-    });
-
-    speedOptionsList.forEach(option => {
-        option.addEventListener('click', (e) => {
-            e.stopPropagation();
-            playbackSpeed = parseFloat(option.getAttribute('data-speed'));
+    if (speedSelect) {
+        speedSelect.addEventListener('change', (e) => {
+            playbackSpeed = parseFloat(e.target.value);
             audio.playbackRate = playbackSpeed;
-            
-            // Update Speed Button Text
-            speedBtn.textContent = `${playbackSpeed}x`;
-            
-            // Update active option styling
-            speedOptionsList.forEach(opt => opt.classList.remove('active'));
-            option.classList.add('active');
-            
-            // Hide options
-            speedOptions.classList.remove('show');
         });
-    });
+    }
 
     // Volume Slider Click/Drag
     function updateVolume(e) {

@@ -2,9 +2,6 @@
 .DS_Store
 Thumbs.db
 
-# Huge curriculum PDF files (not needed for landing page execution)
-*.pdf
-
 # Log files
 *.log
 
