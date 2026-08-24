@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
             contextText += `[Context Source ${idx + 1}]: Page ${c.page}, Module ${c.module_num}: ${c.module_title}\nText chunk: "${c.text}"\n\n`;
         });
 
-        const prompt = `You are Luca's AI CFA Level I Study Coach, assisting a user in their growth and learning journey.
+        const prompt = `You are Luca's Personal CFA Tutor :), assisting a user in their growth and learning journey.
 Use the provided context blocks from Luca's book "CFA Program 2025 Level I Volume 5: Equity Investments" as your primary strategic guidance and inspiration.
 
 Guidelines:
