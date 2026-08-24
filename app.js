@@ -405,4 +405,455 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ==========================================================================
+    // CFA Quiz Engine Logic
+    // ==========================================================================
+    const quizStates = {}; // Holds state for active quizzes
+
+    // Toggle Quiz Container
+    const quizToggleBtns = document.querySelectorAll('.quiz-toggle-btn');
+    quizToggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const modId = btn.getAttribute('data-module');
+            const container = document.getElementById(`quiz-container-${modId}`);
+            
+            if (container.style.display === 'block') {
+                container.style.display = 'none';
+                btn.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    Practice Quiz
+                `;
+            } else {
+                container.style.display = 'block';
+                btn.innerHTML = 'Close Quiz';
+                startQuiz(modId, container);
+            }
+        });
+    });
+
+    // Load Quiz Scores from localStorage
+    function loadQuizProgress() {
+        const savedScores = localStorage.getItem('cfa_quiz_scores');
+        if (savedScores) {
+            const scores = JSON.parse(savedScores);
+            Object.keys(scores).forEach(modId => {
+                const btn = document.querySelector(`.quiz-toggle-btn[data-module="${modId}"]`);
+                if (btn) {
+                    btn.setAttribute('data-completed', 'true');
+                    // Add checkmark indicator
+                    if (!btn.querySelector('.checkmark')) {
+                        btn.insertAdjacentHTML('beforeend', ` <span class="checkmark" style="color: var(--accent-green); margin-left: 6px;">✓ (${scores[modId]}/6)</span>`);
+                    }
+                }
+            });
+        }
+    }
+    loadQuizProgress();
+
+    function startQuiz(modId, container) {
+        const questions = quizData[modId].questions;
+        quizStates[modId] = {
+            currentIdx: 0,
+            score: 0,
+            selectedOpt: null,
+            submitted: false,
+            answers: []
+        };
+        renderQuizQuestion(modId, container);
+    }
+
+    function renderQuizQuestion(modId, container) {
+        const state = quizStates[modId];
+        const question = quizData[modId].questions[state.currentIdx];
+        const totalQuestions = quizData[modId].questions.length;
+        
+        state.selectedOpt = null;
+        state.submitted = false;
+
+        const progressPercent = (state.currentIdx / totalQuestions) * 100;
+
+        let optionsHtml = '';
+        Object.keys(question.options).forEach(key => {
+            optionsHtml += `
+                <button class="quiz-option-btn" data-option="${key}">
+                    <span class="quiz-option-letter">${key}</span>
+                    <span class="quiz-option-text">${escapeHtml(question.options[key])}</span>
+                </button>
+            `;
+        });
+
+        container.innerHTML = `
+            <div class="quiz-question-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);">
+                    <span>Question ${state.currentIdx + 1} of ${totalQuestions}</span>
+                    <span>CFA Level I Difficulty</span>
+                </div>
+                <div class="progress-bar-wrapper" style="height: 3px; background: rgba(255,255,255,0.05); margin-bottom: 20px;">
+                    <div style="height: 100%; background: var(--accent-blue); width: ${progressPercent}%; transition: width 0.3s ease;"></div>
+                </div>
+                ${question.scenario ? `<div class="quiz-scenario">${escapeHtml(question.scenario)}</div>` : ''}
+                <div class="quiz-question-text">${escapeHtml(question.question)}</div>
+                
+                <div class="quiz-options-list">
+                    ${optionsHtml}
+                </div>
+                
+                <div id="quiz-explanation-${modId}" class="quiz-explanation-box" style="display: none;">
+                    <div class="quiz-explanation-title">Explanation</div>
+                    <div class="quiz-explanation-text">${formatExplanation(question.explanation)}</div>
+                </div>
+
+                <div class="quiz-footer">
+                    <span class="quiz-score-badge">Score: ${state.score}/${totalQuestions}</span>
+                    <button id="quiz-submit-${modId}" class="btn-primary" disabled style="padding: 10px 20px; font-size: 13px; border-radius: 20px;">Submit Answer</button>
+                </div>
+            </div>
+        `;
+
+        // Attach option click listeners
+        const optionBtns = container.querySelectorAll('.quiz-option-btn');
+        const submitBtn = container.querySelector(`#quiz-submit-${modId}`);
+
+        optionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (state.submitted) return;
+                
+                optionBtns.forEach(o => o.classList.remove('selected'));
+                btn.classList.add('selected');
+                state.selectedOpt = btn.getAttribute('data-option');
+                submitBtn.removeAttribute('disabled');
+            });
+        });
+
+        // Submit button listener
+        submitBtn.addEventListener('click', () => {
+            if (state.submitted) {
+                // Next question logic
+                state.currentIdx++;
+                if (state.currentIdx < totalQuestions) {
+                    renderQuizQuestion(modId, container);
+                } else {
+                    renderQuizResults(modId, container);
+                }
+                return;
+            }
+
+            // Submit logic
+            state.submitted = true;
+            const isCorrect = state.selectedOpt === question.correct;
+            if (isCorrect) {
+                state.score++;
+            }
+            state.answers.push({
+                questionId: question.id,
+                selected: state.selectedOpt,
+                correct: question.correct,
+                isCorrect: isCorrect
+            });
+
+            // Highlight buttons
+            optionBtns.forEach(btn => {
+                const opt = btn.getAttribute('data-option');
+                btn.classList.remove('selected');
+                if (opt === question.correct) {
+                    btn.classList.add('correct');
+                } else if (opt === state.selectedOpt) {
+                    btn.classList.add('incorrect');
+                }
+                btn.setAttribute('disabled', 'true');
+            });
+
+            // Show explanation
+            const expBox = container.querySelector(`#quiz-explanation-${modId}`);
+            const expTitle = expBox.querySelector('.quiz-explanation-title');
+            if (isCorrect) {
+                expTitle.style.color = 'var(--accent-green)';
+                expTitle.textContent = 'Correct Answer';
+            } else {
+                expTitle.style.color = 'var(--accent-red)';
+                expTitle.textContent = `Incorrect (Correct Option: ${question.correct})`;
+            }
+            expBox.style.display = 'block';
+
+            // Change submit button text
+            submitBtn.textContent = (state.currentIdx + 1 < totalQuestions) ? 'Next Question' : 'View Results';
+        });
+    }
+
+    function renderQuizResults(modId, container) {
+        const state = quizStates[modId];
+        const total = quizData[modId].questions.length;
+        const percent = Math.round((state.score / total) * 100);
+        const dashOffset = 251.2 - (251.2 * percent) / 100; // SVG circle length is 2 * PI * r = 2 * 3.14 * 40 = 251.2
+
+        container.innerHTML = `
+            <div class="quiz-results-dashboard">
+                <div class="score-circle-container">
+                    <svg class="score-circle-svg" viewBox="0 0 100 100">
+                        <circle class="score-circle-bg" cx="50" cy="50" r="40"></circle>
+                        <circle class="score-circle-bar" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="${dashOffset}"></circle>
+                    </svg>
+                    <div class="score-text">${percent}%</div>
+                </div>
+                <h4 style="color: #fff; font-family: var(--font-heading); margin-bottom: 8px; font-size: 18px;">Quiz Completed</h4>
+                <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 20px;">
+                    You scored <strong>${state.score}</strong> out of <strong>${total}</strong>.
+                </p>
+                <div style="display: flex; gap: 12px; justify-content: center;">
+                    <button id="quiz-retake-${modId}" class="btn-primary" style="padding: 10px 20px; font-size: 13px; border-radius: 20px;">Retake Quiz</button>
+                </div>
+            </div>
+        `;
+
+        // Save progress to localStorage
+        const savedScores = localStorage.getItem('cfa_quiz_scores') ? JSON.parse(localStorage.getItem('cfa_quiz_scores')) : {};
+        if (!savedScores[modId] || state.score > savedScores[modId]) {
+            savedScores[modId] = state.score;
+            localStorage.setItem('cfa_quiz_scores', JSON.stringify(savedScores));
+            
+            // Update toggle button text
+            const btn = document.querySelector(`.quiz-toggle-btn[data-module="${modId}"]`);
+            if (btn) {
+                btn.setAttribute('data-completed', 'true');
+                const checkmark = btn.querySelector('.checkmark');
+                if (checkmark) {
+                    checkmark.textContent = `✓ (${state.score}/6)`;
+                } else {
+                    btn.insertAdjacentHTML('beforeend', ` <span class="checkmark" style="color: var(--accent-green); margin-left: 6px;">✓ (${state.score}/6)</span>`);
+                }
+            }
+        }
+
+        container.querySelector(`#quiz-retake-${modId}`).addEventListener('click', () => {
+            startQuiz(modId, container);
+        });
+    }
+
+    // Final Exam Interactivity
+    const startFinalBtn = document.getElementById('start-final-exam-btn');
+    const finalContainer = document.getElementById('final-exam-quiz-container');
+    const finalVisual = document.getElementById('final-exam-visual');
+
+    if (startFinalBtn) {
+        startFinalBtn.addEventListener('click', () => {
+            if (finalContainer.style.display === 'block') {
+                finalContainer.style.display = 'none';
+                finalVisual.style.display = 'flex';
+                startFinalBtn.textContent = 'Start Final Exam';
+            } else {
+                finalContainer.style.display = 'block';
+                finalVisual.style.display = 'none';
+                startFinalBtn.textContent = 'Close Final Exam';
+                startFinalExam();
+            }
+        });
+    }
+
+    function startFinalExam() {
+        // Load the 12 non-overlapping final exam questions directly from the "final" pool
+        const compiledQuestions = quizData["final"].questions.map(q => ({
+            ...q,
+            moduleNum: "Final",
+            moduleTitle: "Comprehensive Exam"
+        }));
+        
+        // Shuffle them for better dynamics
+        compiledQuestions.sort(() => Math.random() - 0.5);
+
+        quizStates["final"] = {
+            currentIdx: 0,
+            score: 0,
+            selectedOpt: null,
+            submitted: false,
+            answers: [],
+            compiledQuestions: compiledQuestions
+        };
+
+        renderFinalQuestion();
+    }
+
+    function renderFinalQuestion() {
+        const state = quizStates["final"];
+        const question = state.compiledQuestions[state.currentIdx];
+        const totalQuestions = state.compiledQuestions.length;
+        
+        state.selectedOpt = null;
+        state.submitted = false;
+
+        const progressPercent = (state.currentIdx / totalQuestions) * 100;
+
+        let optionsHtml = '';
+        Object.keys(question.options).forEach(key => {
+            optionsHtml += `
+                <button class="quiz-option-btn" data-option="${key}">
+                    <span class="quiz-option-letter">${key}</span>
+                    <span class="quiz-option-text">${escapeHtml(question.options[key])}</span>
+                </button>
+            `;
+        });
+
+        finalContainer.innerHTML = `
+            <div class="quiz-question-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);">
+                    <span>Question ${state.currentIdx + 1} of ${totalQuestions}</span>
+                    <span style="color: var(--accent-gold);">Topic: ${escapeHtml(question.moduleTitle)}</span>
+                </div>
+                <div class="progress-bar-wrapper" style="height: 3px; background: rgba(255,255,255,0.05); margin-bottom: 20px;">
+                    <div style="height: 100%; background: var(--accent-gold); width: ${progressPercent}%; transition: width 0.3s ease;"></div>
+                </div>
+                ${question.scenario ? `<div class="quiz-scenario">${escapeHtml(question.scenario)}</div>` : ''}
+                <div class="quiz-question-text">${escapeHtml(question.question)}</div>
+                
+                <div class="quiz-options-list">
+                    ${optionsHtml}
+                </div>
+                
+                <div id="quiz-explanation-final" class="quiz-explanation-box" style="display: none;">
+                    <div class="quiz-explanation-title">Explanation</div>
+                    <div class="quiz-explanation-text">${formatExplanation(question.explanation)}</div>
+                </div>
+
+                <div class="quiz-footer">
+                    <span class="quiz-score-badge" style="color: var(--accent-gold);">Final Exam Score: ${state.score}/${totalQuestions}</span>
+                    <button id="quiz-submit-final" class="btn-primary" disabled style="padding: 10px 20px; font-size: 13px; border-radius: 20px;">Submit Answer</button>
+                </div>
+            </div>
+        `;
+
+        const optionBtns = finalContainer.querySelectorAll('.quiz-option-btn');
+        const submitBtn = finalContainer.querySelector('#quiz-submit-final');
+
+        optionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (state.submitted) return;
+                
+                optionBtns.forEach(o => o.classList.remove('selected'));
+                btn.classList.add('selected');
+                state.selectedOpt = btn.getAttribute('data-option');
+                submitBtn.removeAttribute('disabled');
+            });
+        });
+
+        submitBtn.addEventListener('click', () => {
+            if (state.submitted) {
+                state.currentIdx++;
+                if (state.currentIdx < totalQuestions) {
+                    renderFinalQuestion();
+                } else {
+                    renderFinalResults();
+                }
+                return;
+            }
+
+            state.submitted = true;
+            const isCorrect = state.selectedOpt === question.correct;
+            if (isCorrect) {
+                state.score++;
+            }
+            state.answers.push({
+                questionId: question.id,
+                moduleNum: question.moduleNum,
+                moduleTitle: question.moduleTitle,
+                selected: state.selectedOpt,
+                correct: question.correct,
+                isCorrect: isCorrect
+            });
+
+            optionBtns.forEach(btn => {
+                const opt = btn.getAttribute('data-option');
+                btn.classList.remove('selected');
+                if (opt === question.correct) {
+                    btn.classList.add('correct');
+                } else if (opt === state.selectedOpt) {
+                    btn.classList.add('incorrect');
+                }
+                btn.setAttribute('disabled', 'true');
+            });
+
+            const expBox = finalContainer.querySelector('#quiz-explanation-final');
+            const expTitle = expBox.querySelector('.quiz-explanation-title');
+            if (isCorrect) {
+                expTitle.style.color = 'var(--accent-green)';
+                expTitle.textContent = 'Correct Answer';
+            } else {
+                expTitle.style.color = 'var(--accent-red)';
+                expTitle.textContent = `Incorrect (Correct Option: ${question.correct})`;
+            }
+            expBox.style.display = 'block';
+
+            submitBtn.textContent = (state.currentIdx + 1 < totalQuestions) ? 'Next Question' : 'View Results';
+        });
+    }
+
+    function renderFinalResults() {
+        const state = quizStates["final"];
+        const total = state.compiledQuestions.length;
+        const percent = Math.round((state.score / total) * 100);
+        const dashOffset = 251.2 - (251.2 * percent) / 100;
+
+        let breakdownHtml = '';
+        state.answers.forEach(ans => {
+            breakdownHtml += `
+                <div class="result-row">
+                    <span style="font-weight: 500;">Module ${ans.moduleNum}: ${escapeHtml(ans.moduleTitle)}</span>
+                    <span style="color: ${ans.isCorrect ? 'var(--accent-green)' : 'var(--accent-red)'}; font-weight: 700;">
+                        ${ans.isCorrect ? '✓ Correct' : `✗ Incorrect (Chose ${ans.selected}, Correct: ${ans.correct})`}
+                    </span>
+                </div>
+            `;
+        });
+
+        finalContainer.innerHTML = `
+            <div class="quiz-results-dashboard">
+                <div class="score-circle-container">
+                    <svg class="score-circle-svg" viewBox="0 0 100 100">
+                        <circle class="score-circle-bg" cx="50" cy="50" r="40"></circle>
+                        <circle class="score-circle-bar" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="${dashOffset}"></circle>
+                    </svg>
+                    <div class="score-text">${percent}%</div>
+                </div>
+                <h4 style="color: #fff; font-family: var(--font-heading); margin-bottom: 8px; font-size: 20px;">Exam Completed</h4>
+                <p style="font-size: 13.5px; color: var(--text-secondary); margin-bottom: 16px;">
+                    You scored <strong>${state.score}</strong> out of <strong>${total}</strong> on this comprehensive exam.
+                </p>
+                
+                <h5 style="color: #fff; font-family: var(--font-heading); text-align: left; font-size: 14px; margin: 24px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px;">Topic Areas Breakdown</h5>
+                <div class="final-results-grid">
+                    ${breakdownHtml}
+                </div>
+
+                <div style="display: flex; gap: 12px; justify-content: center; margin-top: 24px;">
+                    <button id="final-exam-retake" class="btn-primary" style="padding: 10px 20px; font-size: 13px; border-radius: 20px;">Retake Exam</button>
+                </div>
+            </div>
+        `;
+
+        finalContainer.querySelector('#final-exam-retake').addEventListener('click', () => {
+            startFinalExam();
+        });
+    }
+
+    // Helper functions for escaping text & formatting explanations
+    function escapeHtml(text) {
+        if (!text) return '';
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.toString().replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    function formatExplanation(text) {
+        if (!text) return '';
+        // Line breaks convertion for readable paragraphs
+        return escapeHtml(text).replace(/\n/g, '<br>');
+    }
 });
