@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call Gemini API REST
     function callGeminiAPI(userQuery, chunks) {
         const apiKey = localStorage.getItem('gemini_api_key') || defaultApiKey;
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`;
 
         // Construct prompt with context
         let contextText = '';
