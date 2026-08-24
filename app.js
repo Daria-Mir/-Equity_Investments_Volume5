@@ -394,9 +394,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Also clicking anywhere on the card header/meta could trigger it
     moduleCards.forEach((card, index) => {
         card.addEventListener('click', (e) => {
-            // Check if user clicked inside visual or table or a button
-            if (e.target.closest('.module-visual') || e.target.closest('.play-module-btn')) {
-                return; // Do not trigger play if clicking visual
+            // Check if user clicked inside visual, play button, quiz actions, or quiz containers
+            if (
+                e.target.closest('.module-visual') || 
+                e.target.closest('.play-module-btn') || 
+                e.target.closest('.module-actions') || 
+                e.target.closest('.quiz-container')
+            ) {
+                return; // Do not trigger play
             }
             if (currentTrackIndex === index) {
                 togglePlay();
