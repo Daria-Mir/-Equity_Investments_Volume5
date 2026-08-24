@@ -416,6 +416,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     const quizStates = {}; // Holds state for active quizzes
 
+    // Prevent any clicks inside quiz containers or action bars from bubbling up and starting the audio player
+    document.querySelectorAll('.quiz-container, .module-actions').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    });
+
     // Toggle Quiz Container
     const quizToggleBtns = document.querySelectorAll('.quiz-toggle-btn');
     quizToggleBtns.forEach(btn => {
@@ -437,6 +444,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 container.style.display = 'block';
                 btn.innerHTML = 'Close Quiz';
                 startQuiz(modId, container);
+                
+                // Smooth scroll to the quiz container so the user sees it immediately
+                setTimeout(() => {
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
             }
         });
     });
